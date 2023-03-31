@@ -1,5 +1,5 @@
 pipeline {
-	agent { any { image 'node:16.20' }
+	agent { any { image 'node:16.20' } }
 	stages { 
 		stage ("Test") {			
 			
