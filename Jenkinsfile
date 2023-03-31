@@ -1,5 +1,8 @@
 pipeline {
-	agent none 
+	agent any 
+	tools {
+		docker 'latest'
+	}
 	stages { 
 		stage ("Test") {
 			agent {
