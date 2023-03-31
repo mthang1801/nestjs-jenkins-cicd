@@ -1,7 +1,7 @@
 pipeline {
 	agent any 
 	 tools {
-        docker 'latest'
+        docker 'DockerLatest'
 		nodejs 'NodeJS16.20'
     }
 	stages { 
