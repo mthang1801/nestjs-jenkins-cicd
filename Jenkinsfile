@@ -1,11 +1,8 @@
 pipeline {
-	agent any 
-	 tools {
-        docker 'DockerLatest'
-		nodejs 'NodeJS16.20'
-    }
+	agent any 	 
 	stages { 
 		stage ("Test") {			
+			agent { docker { image 'node:16.13.1-alpine'}}
 			steps { 
 				sh "node --version"
 				sh "npm install"
