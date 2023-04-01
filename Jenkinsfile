@@ -1,5 +1,5 @@
 pipeline {
-	agent any 
+	agent { docker { image 'node:16.20.0-alpine3.17' } }	
 	stages { 
 		stage('Checkout Code') {
 			steps{ 
@@ -10,6 +10,8 @@ pipeline {
 		stage("Installation") {
 			steps {
 				sh "node --version"				
+				sh "npm remove node_modules"
+				sh "npm remove package-lock.json"
 				sh "npm install"
 			}			
 		}
