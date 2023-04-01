@@ -1,5 +1,4 @@
-pipeline {
-	// agent { docker { image 'node:16.20.0-alpine3.17' } }	
+pipeline {	
 	agent any
 	stages { 		
 		stage('Checkout Code') {
