@@ -16,8 +16,6 @@ pipeline {
 		stage("Installation") {
 			steps {
 				sh "node --version"				
-				sh "npm remove node_modules"
-				sh "npm remove package-lock.json"
 				sh "npm install"
 			}			
 		}
