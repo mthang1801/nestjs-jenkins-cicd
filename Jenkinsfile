@@ -34,8 +34,8 @@ pipeline {
 					sh "docker tag ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
 					sh "docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"				
 
-					sh "docker rmi -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG}"
-					sh "docker rmi -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
+					sh "docker rmi ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG}"
+					sh "docker rmi ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
 				}				
 			}
 		}
