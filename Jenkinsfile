@@ -1,5 +1,5 @@
 pipeline {
-	agent { docker { image 'node:16.20' } }	
+	agent { docker { image 'node:16' } }	
 	stages { 
 		stage('Checkout Code') {
 			steps{ 
@@ -9,9 +9,8 @@ pipeline {
 
 		stage("Installation") {
 			steps {
-				sh "node --version"
-				sh "chown -R 1003:1003 '/.npm'"
-				sh "npm install --force"
+				sh "node --version"				
+				sh "npm install"
 			}			
 		}
 
