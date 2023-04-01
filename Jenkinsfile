@@ -10,13 +10,13 @@ pipeline {
 		stage("Installation") {
 			steps {
 				sh "node --version"
+				sh "chown -R 1003:1003 '/.npm'"
 				sh "npm install --force"
 			}			
 		}
 
 		stage("Test") {						
-			steps { 		
-				sh "ls ltr"		
+			steps { 						
 				sh "npm test"
 			}			
 		}
