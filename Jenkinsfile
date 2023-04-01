@@ -23,8 +23,7 @@ pipeline {
 			}			
 		}
 
-		stage("Build And Push Image") {
-			agent {}
+		stage("Build And Push Image") {			
 			environment { 
 				DOCKER_TAG="${env.BUILD_NUMBER}"
 				DOCKER_IMAGE="nestjs-svc"
