@@ -1,8 +1,5 @@
 pipeline {
-	agent { docker { image 'node:16.20' } }
-	tools {
-		docker "latest"
-	}
+	agent { docker { image 'node:16.20' } }	
 	stages { 
 		stage('Checkout Code') {
 			steps{ 
@@ -30,6 +27,7 @@ pipeline {
 			}
 			steps {				
 				withCredentials([usernamePassword(credentialsId:"docker-hub", usernameVariable: "DOCKER_USERNAME", passwordVariable: "DOCKER_PASSWORD")]) {					
+					sh "docker -v"
 					sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
 					sh "docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG} . --no-cache"
 					sh "docker images | grep ${DOCKER_IMAGE}"
