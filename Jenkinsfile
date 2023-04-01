@@ -7,6 +7,12 @@ pipeline {
 			}       
         }		
 
+		stage("Clone Code") {
+            steps {
+               git branch: "main", url: "https://gitlab.com/mthang1801/nestjs-cicd.git"
+            }			
+        }
+
 		stage("Installation") {
 			steps {
 				sh "node --version"				
