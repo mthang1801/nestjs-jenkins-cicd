@@ -1,17 +1,17 @@
 pipeline {
 	agent { docker { image 'node:16.20.0-alpine3.17' } }	
-	stages { 
+	stages { 		
+		stage("Clone Code") {
+            steps {
+               git branch: "main", url: "https://github.com/mthang1801/nestjs-cicd"
+            }			
+        }
+
 		stage('Checkout Code') {
 			steps{ 
 				checkout scm  
 			}       
         }		
-
-		stage("Clone Code") {
-            steps {
-               git branch: "main", url: "https://gitlab.com/mthang1801/nestjs-cicd.git"
-            }			
-        }
 
 		stage("Installation") {
 			steps {
