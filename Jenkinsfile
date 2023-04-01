@@ -10,7 +10,7 @@ pipeline {
 		stage("Installation") {
 			steps {
 				sh "node --version"
-				sh "npm install -f"
+				sh "npm install --force"
 			}			
 		}
 
