@@ -4,9 +4,9 @@ def portNumber = 5000
 pipeline {	
 	agent any
 	stages { 		
-		stage('Checkout Code') {
-			scmVars = checkout scm;
-			steps{ 
+		stage('Checkout Code') {			
+			steps{
+				sh "echo ${env.BRANCH_NAME}"
 				checkout scm  
 			}       
         }		
@@ -28,14 +28,14 @@ pipeline {
 			environment { 
 				DOCKER_TAG="${env.BUILD_NUMBER}"
 				DOCKER_IMAGE="nestjs-svc"
+				
 			}
-			steps {				
+			steps {								
 				withCredentials([usernamePassword(credentialsId: "docker-hub", usernameVariable: "DOCKER_USERNAME", passwordVariable: "DOCKER_PASSWORD")]){															
 					sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
 					sh "docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG} . --no-cache"
 					sh "docker tag ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
-					sh "docker images | grep ${DOCKER_IMAGE}"					
-					
+					sh "docker images | grep ${DOCKER_IMAGE}"									
 					sh "docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG}"					
 					sh "docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"					
 					
