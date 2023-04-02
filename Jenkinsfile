@@ -26,7 +26,7 @@ pipeline {
 					sh "docker -v"
 					sh "printenv"
 					echo "The build number is ${env.BUILD_NUMBER}"
-					wrap([$class: "BuildUser"]){
+					wrap([$class: 'BuildUser']){
 						buildUser = env.USER_ID + "-" + env.BUILD_USER 
 					}
 					echo "buildUser is : ${buildUser}"
