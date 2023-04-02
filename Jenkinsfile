@@ -5,8 +5,7 @@ pipeline {
 	agent any
 	stages { 		
 		stage('Checkout Code') {			
-			steps{
-				sh "echo ${env.BRANCH_NAME}"
+			steps{				
 				checkout scm  
 			}       
         }		
@@ -14,6 +13,7 @@ pipeline {
 		stage("Installation") {
 			steps {
 				sh "node -v"				
+				sh "echo ${env.BRANCH_NAME}"
 				sh "npm install"
 			}			
 		}
