@@ -8,22 +8,28 @@ def getGitBranchName() {
 pipeline {	
 	agent any
 	stages { 	
+		stage('Checkout Code') {			
+			environment {
+				scmVars = checkout scm
+			}
+			steps{							
+				checkout scm  				
+			}       
+        }		
+
 		stage("Environment")	 {
 			environment {
-				BRANCH_NAME = getGitBranchName()
+				BRANCH_NAME = getGitBranchName()				
 			}
 			steps{ 
 				script {
+					sh "git --version"
+					echo scmVars
 					sh "echo 'branchName: ${BRANCH_NAME}'"  
 				}
 			}
 		}
-		stage('Checkout Code') {			
-			steps{							
-				checkout scm  
-			}       
-        }		
-
+		
 		stage("Installation") {
 			steps {
 				sh "node -v"								
