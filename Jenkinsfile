@@ -14,6 +14,7 @@ pipeline {
 			steps {
 				sh "node -v"				
 				sh "echo ${env.BRANCH_NAME}"
+				sh "echo ${ENVIRONMENT_NAME}"
 				sh "npm install"
 			}			
 		}
