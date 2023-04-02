@@ -6,15 +6,14 @@ pipeline {
 	stages { 		
 		stage('Checkout Code') {			
 			steps{				
+				echo env.BRANCH_NAME
 				checkout scm  
 			}       
         }		
 
 		stage("Installation") {
 			steps {
-				sh "node -v"				
-				sh "echo ${env.BRANCH_NAME}"
-				sh "echo ${ENVIRONMENT_NAME}"
+				sh "node -v"								
 				sh "npm install"
 			}			
 		}
@@ -38,8 +37,7 @@ pipeline {
 					sh "docker tag ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
 					sh "docker images | grep ${DOCKER_IMAGE}"									
 					sh "docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG}"					
-					sh "docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"					
-					
+					sh "docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"										
 					sh "docker rmi -f ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG}"
 					sh "docker rmi -f ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
 				}				
