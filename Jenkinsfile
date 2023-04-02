@@ -1,5 +1,6 @@
 def scmVars
 def portNumber = 5000
+def buildUser = ''
 
 def getGitBranchName() {
     return scm.branches[0].name
@@ -8,10 +9,7 @@ def getGitBranchName() {
 pipeline {	
 	agent any
 	stages { 	
-		stage('Checkout Code') {			
-			environment {
-				scmVars = checkout scm
-			}
+		stage('Checkout Code') {						
 			steps{							
 				checkout scm  				
 			}       
@@ -23,9 +21,15 @@ pipeline {
 			}
 			steps{ 
 				script {
-					sh "git --version"
-					echo scmVars
+					sh "git --version"					
 					sh "echo 'branchName: ${BRANCH_NAME}'"  
+					sh "docker -v"
+					sh "printenv"
+					echo "The build number is ${env.BUILD_NUMBER}"
+					wrap([$class: "BuildUser"]){
+						buildUser = env.USER_ID + "-" + env.BUILD_USER 
+					}
+					echo "buildUser is : ${buildUser}"
 				}
 			}
 		}
