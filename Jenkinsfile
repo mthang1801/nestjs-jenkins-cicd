@@ -1,12 +1,25 @@
 def scmVars
 def portNumber = 5000
 
+def getGitBranchName() {
+    return scm.branches[0].name
+}
+
 pipeline {	
 	agent any
-	stages { 		
+	stages { 	
+		stage("Environment")	 {
+			environment {
+				BRANCH_NAME = getGitBranchName()
+			}
+			steps{ 
+				script {
+					sh "echo 'branchName: ${BRANCH_NAME}'"  
+				}
+			}
+		}
 		stage('Checkout Code') {			
-			steps{				
-				echo env.BRANCH_NAME
+			steps{							
 				checkout scm  
 			}       
         }		
@@ -27,10 +40,9 @@ pipeline {
 		stage("Build And Push Image") {			
 			environment { 
 				DOCKER_TAG="${env.BUILD_NUMBER}"
-				DOCKER_IMAGE="nestjs-svc"
-				
-			}
-			steps {								
+				DOCKER_IMAGE="nestjs-svc"							
+			}		
+			steps {												
 				withCredentials([usernamePassword(credentialsId: "docker-hub", usernameVariable: "DOCKER_USERNAME", passwordVariable: "DOCKER_PASSWORD")]){															
 					sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
 					sh "docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${DOCKER_TAG} . --no-cache"
