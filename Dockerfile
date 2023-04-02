@@ -11,3 +11,4 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app . 
 EXPOSE 5000 
+ENTRYPOINT [ "npm", "start" ]
